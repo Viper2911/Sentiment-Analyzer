@@ -54,4 +54,14 @@ This microservice follows a clean and high-performance workflow:
 | **Testing** | **Pytest** | `8.0.0` | Runs automated unit tests for system validation. |
 | **Server** | **Uvicorn** | `0.27.0` | ASGI server implementation to run the FastAPI app. |
 
+## Architecture Diagram Code:
+
+graph TD
+    User[User / Client] -->|POST /analyze| API[FastAPI Container]
+    API -->|Validation| Check{Valid Input?}
+    Check -- Yes --> Logic[TextBlob NLP Engine]
+    Check -- No --> Error[Return 400 Error]
+    Logic -->|Compute Scores| Score[Polarity & Subjectivity]
+    Logic -.->|Log Events| Obs[Observability Stack]
+    Score -->|JSON Response| User
 
